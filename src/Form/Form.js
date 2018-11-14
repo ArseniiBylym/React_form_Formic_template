@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
 import classnames from 'classnames';
-import { Button, Form, FormGroup, Label, Input, FormText, Row, Container, Col, FormFeedback } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, Row, Col, FormFeedback } from 'reactstrap';
 
 class FormComponent extends Component {
     state = {
@@ -62,9 +62,6 @@ const MyForm = props => {
         isSubmitting,
     } = props;
     return (
-        // <Container>
-        //     <Row>
-        //         <Col xs="12">
         <Form onSubmit={handleSubmit} >
             <FormGroup>
                 <Label size='sm' mr="auto" className="text-info" for="firstName">First Name</Label>
@@ -147,23 +144,29 @@ const MyForm = props => {
                 {errors.password && touched.password && <FormFeedback size="sm" className='text-danger'>{errors.password}</FormFeedback>} */}
             </FormGroup>
             <FormGroup>
-                <Button
-                    color='secondary'
-                    type="button"
-                    className="outline"
-                    onClick={handleReset}
-                    disabled={!dirty || isSubmitting}
-                >
-                    Reset
-                            </Button>
-                <Button color="success" type="submit" disabled={isSubmitting}>
-                    Submit
-                            </Button>
+                <Row>
+                    <Col sm='4'>
+                    <Button block
+                        color='secondary'
+                        type="button"
+                        onClick={handleReset}
+                        // disabled={!dirty || isSubmitting}
+                        disabled={!dirty || isSubmitting ? true : false}
+                        >Reset</Button>
+                    </Col>
+                    <Col sm='4'>
+                        <Button block color="primary" type="submit" 
+                        disabled={!errors.firstName && touched.firstName && 
+                            !errors.lastName && touched.lastName && 
+                            !errors.email && touched.email && 
+                            !errors.password && touched.password ? false : true}
+                        >
+                            Submit</Button>
+                    </Col>
+                   
+                </Row> 
             </FormGroup>
         </Form>
-        //         </Col>
-        //     </Row>
-        // </Container>
 
     );
 };
