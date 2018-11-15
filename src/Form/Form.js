@@ -1,52 +1,19 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
 import classnames from 'classnames';
 import { Button, Form, FormGroup, Label, Input, Row, Col, FormFeedback } from 'reactstrap';
 
-class FormComponent extends Component {
-    state = {
+const FormComponent = (props) => {
 
-    }
-
-    render() {
         return (
             <Fragment>
                 <MyEnhancedForm user={{ email: '', firstName: '', lastName: '', password: '' }} />
             </Fragment>
         )
-    }
 }
 
 export default FormComponent
-
-const formikEnhancer = withFormik({
-    validationSchema: Yup.object().shape({
-        firstName: Yup.string()
-            .min(2, "Name must be longer than 2")
-            .max(12, "Name must be shorter than 12")
-            .required('First name is required.'),
-        lastName: Yup.string()
-            .min(2, "Name must be longer than 2")
-            .required('Last name is required.'),
-        email: Yup.string()
-            .email('Invalid email address')
-            .required('Email is required!'),
-        password: Yup.string()
-            .min(6, "Password bust be longer than 6")
-            .required("Please, enter your password")
-    }),
-
-    mapPropsToValues: ({ user }) => ({
-        ...user,
-    }),
-    handleSubmit: (payload, { setSubmitting }) => {
-        console.log(payload);
-        setSubmitting(false);
-    },
-    displayName: 'MyCustomForm',
-});
-
 
 
 const MyForm = props => {
@@ -171,4 +138,30 @@ const MyForm = props => {
     );
 };
 
-const MyEnhancedForm = formikEnhancer(MyForm);
+const MyEnhancedForm = withFormik({
+    validationSchema: Yup.object().shape({
+        firstName: Yup.string()
+            .min(2, "Name must be longer than 2")
+            .max(12, "Name must be shorter than 12")
+            .required('First name is required.'),
+        lastName: Yup.string()
+            .min(2, "Name must be longer than 2")
+            .required('Last name is required.'),
+        email: Yup.string()
+            .email('Invalid email address')
+            .required('Email is required!'),
+        password: Yup.string()
+            .min(6, "Password bust be longer than 6")
+            .required("Please, enter your password")
+    }),
+
+    mapPropsToValues: ({ user }) => ({
+        ...user,
+    }),
+    handleSubmit: (payload, { setSubmitting, submitCount }) => {
+        console.log(payload);
+        console.log(submitCount)
+        setSubmitting(false);
+    },
+    displayName: 'MyCustomForm',
+})(MyForm);
