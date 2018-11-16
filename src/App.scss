@@ -30,3 +30,19 @@
     display: none;
   }
 }
+
+.myCustomSelect{
+  border: none;
+}
+
+.myCustomSelect > div{
+  border: none;
+  border-bottom: 2px solid blue;
+  border-radius: 0;
+
+  &:hover,
+  &:active{
+    // border-color: black;
+    // box-shadow: none;
+  }
+}

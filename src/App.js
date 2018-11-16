@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.scss';
 import { Button } from 'reactstrap';
 import FormComponent from './Form/Form'
+import CustomSelect from './Select/Select';
 
 class App extends Component {
   render() {
@@ -9,7 +10,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
          <FormComponent/>
-          {/* <Button color="primary">Reactstrapp button</Button> */}
+          <CustomSelect />
         </header>
       </div>
     );
